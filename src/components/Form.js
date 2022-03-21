@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Form = ({ addTask }) => {
+const Form = ({ addTask, changeText, tasks, selectedTaskId }) => {
   const [text, setText] = useState("");
+
+  useEffect(() => {
+    setText(changeText);
+  }, [changeText]);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -12,7 +16,20 @@ const Form = ({ addTask }) => {
       isChecked: false,
     };
 
-    addTask(newTodo);
+    const checkTaskById = tasks.filter((task) => task.id === selectedTaskId);
+    console.log(selectedTaskId, newTodo.id);
+    console.log("checkTaskById", checkTaskById);
+
+    if (checkTaskById) {
+      addTask(checkTaskById);
+    }
+
+    const isElementWithSameText = tasks.find(
+      (task) => task.text === newTodo.text
+    );
+    if (!isElementWithSameText) {
+      addTask(newTodo);
+    }
     setText("");
   };
 

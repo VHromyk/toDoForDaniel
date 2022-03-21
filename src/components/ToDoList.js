@@ -5,6 +5,8 @@ import Stat from "./Stat";
 
 const ToDoList = () => {
   const [tasks, setTasks] = useState([]);
+  const [oldText, setOldText] = useState("");
+  const [selectTaskId, setSelectTaskId] = useState(null);
 
   const resolveTasks = () => tasks.filter((task) => task.isChecked);
 
@@ -32,6 +34,11 @@ const ToDoList = () => {
     setTasks(filterArr);
   };
 
+  const taskEdit = (taskId, oldText) => {
+    setOldText(oldText);
+    setSelectTaskId(taskId);
+  };
+
   return (
     <>
       <Stat quantity={tasks.length}>Your tasks:</Stat>
@@ -44,10 +51,16 @@ const ToDoList = () => {
             task={task}
             toggleChacked={toggleChacked}
             removeTask={removeTask}
+            taskEdit={taskEdit}
           />
         ))}
       </ul>
-      <Form addTask={addTask} />
+      <Form
+        addTask={addTask}
+        changeText={oldText}
+        tasks={tasks}
+        selectedTaskId={selectTaskId}
+      />
     </>
   );
 };
