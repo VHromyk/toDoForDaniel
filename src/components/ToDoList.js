@@ -26,6 +26,12 @@ const ToDoList = () => {
     setTasks([...tasks, el]);
   };
 
+  const removeTask = (taskId) => {
+    const filterArr = tasks.filter((task) => task.id !== taskId);
+
+    setTasks(filterArr);
+  };
+
   return (
     <>
       <Stat quantity={tasks.length}>Your tasks:</Stat>
@@ -33,7 +39,12 @@ const ToDoList = () => {
       <h3>ToDoList</h3>
       <ul className="list">
         {tasks.map((task) => (
-          <ToDo key={task.id} task={task} toggleChacked={toggleChacked} />
+          <ToDo
+            key={task.id}
+            task={task}
+            toggleChacked={toggleChacked}
+            removeTask={removeTask}
+          />
         ))}
       </ul>
       <Form addTask={addTask} />
