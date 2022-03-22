@@ -1,6 +1,6 @@
 import React from "react";
 
-const ToDo = ({ task, toggleChacked, removeTask, taskEdit }) => {
+const ToDo = ({ task, toggleChacked, removeTask, getTaskByClick }) => {
   const { isChecked, id, text } = task;
 
   return (
@@ -16,7 +16,7 @@ const ToDo = ({ task, toggleChacked, removeTask, taskEdit }) => {
       <button
         className="edit-btn"
         type="button"
-        onClick={() => taskEdit(id, text)}
+        onClick={() => getTaskByClick(id, text)}
       >
         E
       </button>

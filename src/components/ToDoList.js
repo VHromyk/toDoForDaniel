@@ -24,6 +24,22 @@ const ToDoList = () => {
     setTasks(filterArr);
   };
 
+  const editTask = (taskId, editText) => {
+    const filterArr = tasks.map((task) => {
+      if (task.id === taskId) {
+        return {
+          ...task,
+          text: editText,
+        };
+      }
+      return task;
+    });
+
+    setTasks(filterArr);
+    setOldText("");
+    setSelectTaskId(null);
+  };
+
   const addTask = (el) => {
     setTasks([...tasks, el]);
   };
@@ -34,7 +50,7 @@ const ToDoList = () => {
     setTasks(filterArr);
   };
 
-  const taskEdit = (taskId, oldText) => {
+  const getTaskByClick = (taskId, oldText) => {
     setOldText(oldText);
     setSelectTaskId(taskId);
   };
@@ -51,7 +67,7 @@ const ToDoList = () => {
             task={task}
             toggleChacked={toggleChacked}
             removeTask={removeTask}
-            taskEdit={taskEdit}
+            getTaskByClick={getTaskByClick}
           />
         ))}
       </ul>
@@ -60,6 +76,7 @@ const ToDoList = () => {
         changeText={oldText}
         tasks={tasks}
         selectedTaskId={selectTaskId}
+        editTask={editTask}
       />
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-const Form = ({ addTask, changeText, tasks, selectedTaskId }) => {
+const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
   const [text, setText] = useState("");
 
   useEffect(() => {
@@ -11,24 +12,16 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId }) => {
     event.preventDefault();
 
     const newTodo = {
-      id: Math.floor(Math.random() * 100),
+      id: uuidv4(),
       text,
       isChecked: false,
     };
 
-    const checkTaskById = tasks.filter((task) => task.id === selectedTaskId);
-    console.log(selectedTaskId, newTodo.id);
-    console.log("checkTaskById", checkTaskById);
-
-    if (checkTaskById) {
-      addTask(checkTaskById);
-    }
-
-    const isElementWithSameText = tasks.find(
-      (task) => task.text === newTodo.text
-    );
-    if (!isElementWithSameText) {
+    const checkTaskById = tasks.find((task) => task.id === selectedTaskId);
+    if (!checkTaskById && newTodo.text) {
       addTask(newTodo);
+    } else {
+      editTask(checkTaskById.id, text);
     }
     setText("");
   };
