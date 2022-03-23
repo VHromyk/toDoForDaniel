@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ToDo from "./ToDo";
 import Form from "./Form";
 import Stat from "./Stat";
@@ -9,6 +9,23 @@ const ToDoList = () => {
   const [selectTaskId, setSelectTaskId] = useState(null);
 
   const resolveTasks = () => tasks.filter((task) => task.isChecked);
+
+  const getTasksFromLocalStorage = () => {
+    const parseTasks = JSON.parse(localStorage.getItem("tasks"));
+
+    if (parseTasks) {
+      setTasks(parseTasks);
+    }
+  };
+
+  useEffect(() => {
+    getTasksFromLocalStorage();
+  }, []);
+
+  const setTasksToLocalStorage = (tasks) => {
+    const tasksToString = JSON.stringify(tasks);
+    localStorage.setItem("tasks", tasksToString);
+  };
 
   const toggleChacked = (taskId) => {
     const filterArr = tasks.map((task) => {
@@ -21,6 +38,7 @@ const ToDoList = () => {
       return task;
     });
 
+    setTasksToLocalStorage(filterArr);
     setTasks(filterArr);
   };
 
@@ -36,17 +54,21 @@ const ToDoList = () => {
     });
 
     setTasks(filterArr);
+    setTasksToLocalStorage(filterArr);
     setOldText("");
     setSelectTaskId(null);
   };
 
   const addTask = (el) => {
-    setTasks([...tasks, el]);
+    const joinTasks = [...tasks, el];
+    setTasksToLocalStorage(joinTasks);
+    setTasks(joinTasks);
   };
 
   const removeTask = (taskId) => {
     const filterArr = tasks.filter((task) => task.id !== taskId);
 
+    setTasksToLocalStorage(filterArr);
     setTasks(filterArr);
   };
 
