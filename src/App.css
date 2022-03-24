@@ -147,7 +147,7 @@ input[type="number"] {
 }
 
 .list li.unchecked {
-  background-color: #da2c1971;
+  background-color: #b0aacf;
 }
 
 .list li:hover .delete-btn {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from "react-toast";
 
 const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
   const [text, setText] = useState("");
@@ -7,6 +8,15 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
   useEffect(() => {
     setText(changeText);
   }, [changeText]);
+
+  const settings = {
+    backgroundColor: "#F35B5B",
+    color: "#000000",
+  };
+
+  const notification = {
+    showError: () => toast.error("You have already this task!", settings),
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -18,11 +28,17 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
     };
 
     const checkTaskById = tasks.find((task) => task.id === selectedTaskId);
-    if (!checkTaskById && newTodo.text) {
+
+    const checkTaskByText = tasks.find((task) => task.text === newTodo.text);
+
+    if (checkTaskByText) {
+      notification.showError();
+      return;
+    } else if (!checkTaskById && newTodo.text) {
       addTask(newTodo);
-    } else {
-      editTask(checkTaskById.id, text);
+      setText("");
     }
+    editTask(checkTaskById.id, text);
     setText("");
   };
 
@@ -40,6 +56,7 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
           />
         </div>
         <button className="btn">Add Task</button>
+        <ToastContainer delay={3000} position="top-center" />
       </form>
     </>
   );
