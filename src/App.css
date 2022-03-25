@@ -16,6 +16,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   margin: 0;
+  font-size: 12px;
   font-family: "Lato", sans-serif;
 }
 
@@ -123,14 +124,22 @@ input[type="number"] {
 }
 
 .delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
   cursor: pointer;
-  margin-left: 10px;
   padding: 5px;
 }
 
 .edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
   cursor: pointer;
   padding: 5px;
+  margin-bottom: 10px;
 }
 
 .checked {
@@ -156,16 +165,26 @@ input[type="number"] {
 
 .text-cnt {
   text-decoration: line-through;
-  width: 270px;
   margin-right: 10px;
 }
 .text-cnt-no {
-  width: 270px;
   margin-right: 10px;
 }
 
 .input-checkbox {
   margin-right: 10px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+}
+.content-wrapper {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.date {
+  color: #c0392b;
 }

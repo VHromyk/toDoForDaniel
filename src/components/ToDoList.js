@@ -8,6 +8,8 @@ const ToDoList = () => {
   const [oldText, setOldText] = useState("");
   const [selectTaskId, setSelectTaskId] = useState(null);
 
+  console.log(tasks);
+
   const resolveTasks = () => tasks.filter((task) => task.isChecked);
 
   const getTasksFromLocalStorage = () => {

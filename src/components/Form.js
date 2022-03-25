@@ -23,6 +23,7 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
 
     const newTodo = {
       id: uuidv4(),
+      startDate: Date.now(),
       text,
       isChecked: false,
     };
