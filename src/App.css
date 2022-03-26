@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+p {
+  margin: 0px;
+}
+
 body {
   background-color: #f7f7f7;
   display: flex;
@@ -189,4 +193,9 @@ input[type="number"] {
 }
 .date {
   color: #c0392b;
+  margin-bottom: 10px;
+}
+
+.calendar-wrapper {
+  width: 300px;
 }

@@ -8,8 +8,6 @@ const ToDoList = () => {
   const [oldText, setOldText] = useState("");
   const [selectTaskId, setSelectTaskId] = useState(null);
 
-  console.log(tasks);
-
   const resolveTasks = () => tasks.filter((task) => task.isChecked);
 
   const getTasksFromLocalStorage = () => {
@@ -35,12 +33,14 @@ const ToDoList = () => {
         return {
           ...task,
           isChecked: !task.isChecked,
+          endDate: Date.now(),
         };
       }
       return task;
     });
 
     setTasksToLocalStorage(filterArr);
+    console.log(filterArr);
     setTasks(filterArr);
   };
 
