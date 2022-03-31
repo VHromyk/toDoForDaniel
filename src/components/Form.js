@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { ToastContainer, toast } from "react-toast";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
   const [text, setText] = useState("");
@@ -48,15 +50,19 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
       <h3>Add new task</h3>
       <form onSubmit={onSubmit}>
         <div className="form-control">
-          <label htmlFor="text">Text</label>
-          <input
+          {/* <label htmlFor="text">Text</label> */}
+          <TextField
+            id="outlined-basic"
+            fullWidth
             type="text"
             value={text}
             onChange={(event) => setText(event.target.value)}
             placeholder="Enter text of the task..."
-          />
+          ></TextField>
         </div>
-        <button className="btn">Add Task</button>
+        <Button className="btn" type="submit">
+          Add Task
+        </Button>
 
         <ToastContainer delay={3000} position="top-center" />
       </form>
