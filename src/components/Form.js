@@ -3,8 +3,16 @@ import { v4 as uuidv4 } from "uuid";
 import { ToastContainer, toast } from "react-toast";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { connect } from "react-redux";
+import * as actions from "../redux/actions";
 
-const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
+const Form = ({
+  addNewTodo,
+  changeText,
+  todoValues,
+  selectedTaskId,
+  editTask,
+}) => {
   const [text, setText] = useState("");
 
   useEffect(() => {
@@ -30,19 +38,23 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
       isChecked: false,
     };
 
-    const checkTaskById = tasks.find((task) => task.id === selectedTaskId);
+    const checkTaskById = todoValues.find((todo) => todo.id === selectedTaskId);
 
-    const checkTaskByText = tasks.find((task) => task.text === newTodo.text);
+    const checkTaskByText = todoValues.find(
+      (task) => task.text === newTodo.text
+    );
 
     if (checkTaskByText) {
       notification.showError();
       return;
     } else if (!checkTaskById && newTodo.text) {
-      addTask(newTodo);
+      addNewTodo(newTodo);
+      setText("");
+    } else {
+      console.log("EDIT_TASK!!!!!!!!");
+      editTask(checkTaskById.id, text);
       setText("");
     }
-    editTask(checkTaskById.id, text);
-    setText("");
   };
 
   return (
@@ -50,7 +62,6 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
       <h3>Add new task</h3>
       <form onSubmit={onSubmit}>
         <div className="form-control">
-          {/* <label htmlFor="text">Text</label> */}
           <TextField
             id="outlined-basic"
             fullWidth
@@ -70,4 +81,12 @@ const Form = ({ addTask, changeText, tasks, selectedTaskId, editTask }) => {
   );
 };
 
-export default Form;
+const mapStateToProps = (state) => ({
+  todoValues: state.todos,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addNewTodo: (todo) => dispatch(actions.addTodo(todo)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

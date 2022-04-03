@@ -1,9 +1,60 @@
 import { createStore } from "redux";
 
-// Reducer принимает предидущий state, и action варит его и возвращает новый стейт.
+const initialState = {
+  todos: [],
+};
 
-const reducer = (state = {}, action) => state;
+function tasksReducer(state = initialState, { type, payload }) {
+  switch (type) {
+    case "ADD_TODO":
+      return {
+        ...state,
+        todos: [...state.todos, payload],
+      };
 
-const store = createStore(reducer);
+    case "EDIT_TODO":
+      console.log("Payload:", payload);
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id === payload.todo.id) {
+            return {
+              ...todo,
+              text: payload.text,
+            };
+          }
+          console.log(todo);
+          return todo;
+        }),
+      };
+
+    case "REMOVE_TODO":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== payload.id),
+      };
+
+    case "TOGGLE_TODO":
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id === payload.id) {
+            return {
+              ...todo,
+              isChecked: !todo.isChecked,
+            };
+          }
+
+          return todo;
+        }),
+      };
+
+    default:
+  }
+
+  return state;
+}
+
+const store = createStore(tasksReducer);
 
 export default store;
