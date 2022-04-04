@@ -12,6 +12,9 @@ const Form = ({
   todoValues,
   selectedTaskId,
   editTodo,
+  isEditTodo,
+  addEditTodoButton,
+  setSelectTaskId,
 }) => {
   const [textValue, setTextValue] = useState("");
 
@@ -47,18 +50,19 @@ const Form = ({
     if (checkTaskByText) {
       notification.showError();
       return;
-    } else if (!checkTaskById && newTodo.text) {
-      addNewTodo(newTodo);
-      setTextValue("");
-    } else {
+    } else if (checkTaskById) {
       const objForEditTodo = {
         todo: checkTaskById,
         newText: textValue,
       };
-      editTodo(objForEditTodo);
 
-      setTextValue("");
+      editTodo(objForEditTodo);
+      addEditTodoButton(false);
+      setSelectTaskId(null);
+    } else if (!checkTaskById && newTodo.text) {
+      addNewTodo(newTodo);
     }
+    setTextValue("");
   };
 
   return (
@@ -76,7 +80,7 @@ const Form = ({
           ></TextField>
         </div>
         <Button className="btn" type="submit">
-          Add Task
+          {isEditTodo ? "Edit Todo" : "Add Todo"}
         </Button>
 
         <ToastContainer delay={3000} position="top-center" />
@@ -87,6 +91,7 @@ const Form = ({
 
 const mapStateToProps = (state) => ({
   todoValues: state.todos,
+  isEditTodo: state.isEditTodo,
 });
 
 const mapDispatchToProps = (dispatch) => ({

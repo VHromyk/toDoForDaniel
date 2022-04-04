@@ -28,3 +28,10 @@ export const toggleTodo = (todo) => {
     payload: todo,
   };
 };
+
+export const addEditTodoButton = (payload) => {
+  return {
+    type: "EDIT_TODO_BUTTON",
+    payload: payload,
+  };
+};

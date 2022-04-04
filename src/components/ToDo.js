@@ -3,7 +3,13 @@ import moment from "moment";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions";
 
-const ToDo = ({ task, toggleTodo, removeTodo, getTaskByClick }) => {
+const ToDo = ({
+  task,
+  toggleTodo,
+  removeTodo,
+  getTaskByClick,
+  addEditTodoButton,
+}) => {
   const { isChecked, text, startDate } = task;
 
   const getCreateDate = moment(startDate).format("DD/ MM/ YYYY - hh:mm");
@@ -26,14 +32,19 @@ const ToDo = ({ task, toggleTodo, removeTodo, getTaskByClick }) => {
           <button
             className="edit-btn"
             type="button"
-            onClick={() => getTaskByClick(task.id, text)}
+            onClick={() => {
+              addEditTodoButton(true);
+              getTaskByClick(task.id, text);
+            }}
           >
             E
           </button>
           <button
             className="delete-btn"
             type="button"
-            onClick={() => removeTodo(task)}
+            onClick={() => {
+              removeTodo(task);
+            }}
           >
             X
           </button>

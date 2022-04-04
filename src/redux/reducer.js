@@ -1,5 +1,6 @@
 const initialState = {
   todos: [],
+  isEditTodo: false,
 };
 
 export function tasksReducer(state = initialState, { type, payload }) {
@@ -22,6 +23,12 @@ export function tasksReducer(state = initialState, { type, payload }) {
           }
           return todo;
         }),
+      };
+
+    case "EDIT_TODO_BUTTON":
+      return {
+        ...state,
+        isEditTodo: payload,
       };
 
     case "REMOVE_TODO":
