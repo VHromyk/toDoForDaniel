@@ -5,12 +5,12 @@ export const addTodo = (todo) => {
   };
 };
 
-export const editTodo = (payload) => {
+export const editTodo = ({ todo, newText }) => {
   return {
     type: "EDIT_TODO",
     payload: {
-      todo: payload,
-      text: payload.text,
+      todo: todo,
+      text: newText,
     },
   };
 };

@@ -11,12 +11,12 @@ const Form = ({
   changeText,
   todoValues,
   selectedTaskId,
-  editTask,
+  editTodo,
 }) => {
-  const [text, setText] = useState("");
+  const [textValue, setTextValue] = useState("");
 
   useEffect(() => {
-    setText(changeText);
+    setTextValue(changeText);
   }, [changeText]);
 
   const settings = {
@@ -34,7 +34,7 @@ const Form = ({
     const newTodo = {
       id: uuidv4(),
       startDate: Date.now(),
-      text,
+      text: textValue,
       isChecked: false,
     };
 
@@ -49,11 +49,15 @@ const Form = ({
       return;
     } else if (!checkTaskById && newTodo.text) {
       addNewTodo(newTodo);
-      setText("");
+      setTextValue("");
     } else {
-      console.log("EDIT_TASK!!!!!!!!");
-      editTask(checkTaskById.id, text);
-      setText("");
+      const objForEditTodo = {
+        todo: checkTaskById,
+        newText: textValue,
+      };
+      editTodo(objForEditTodo);
+
+      setTextValue("");
     }
   };
 
@@ -66,8 +70,8 @@ const Form = ({
             id="outlined-basic"
             fullWidth
             type="text"
-            value={text}
-            onChange={(event) => setText(event.target.value)}
+            value={textValue}
+            onChange={(event) => setTextValue(event.target.value)}
             placeholder="Enter text of the task..."
           ></TextField>
         </div>
@@ -87,6 +91,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addNewTodo: (todo) => dispatch(actions.addTodo(todo)),
+  editTodo: (objForEditTodo) => dispatch(actions.editTodo(objForEditTodo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

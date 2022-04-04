@@ -3,7 +3,7 @@ import moment from "moment";
 import { connect } from "react-redux";
 import * as actions from "../redux/actions";
 
-const ToDo = ({ task, toggleTodo, removeTodo, editTodo }) => {
+const ToDo = ({ task, toggleTodo, removeTodo, getTaskByClick }) => {
   const { isChecked, text, startDate } = task;
 
   const getCreateDate = moment(startDate).format("DD/ MM/ YYYY - hh:mm");
@@ -23,13 +23,13 @@ const ToDo = ({ task, toggleTodo, removeTodo, editTodo }) => {
           <p className={isChecked ? "text-cnt" : "text-cnt-no"}>{text}</p>
         </div>
         <div className="button-wrapper">
-          {/* <button
+          <button
             className="edit-btn"
             type="button"
-            onClick={() => editTodo(task, text)}
+            onClick={() => getTaskByClick(task.id, text)}
           >
             E
-          </button> */}
+          </button>
           <button
             className="delete-btn"
             type="button"
@@ -46,7 +46,6 @@ const ToDo = ({ task, toggleTodo, removeTodo, editTodo }) => {
 const mapDispatchToProps = (dispatch) => ({
   removeTodo: (todo) => dispatch(actions.removeTodo(todo)),
   toggleTodo: (todo) => dispatch(actions.toggleTodo(todo)),
-  editTodo: (todo, text) => dispatch(actions.editTodo(todo, text)),
 });
 
 export default connect(null, mapDispatchToProps)(ToDo);
