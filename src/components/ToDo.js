@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { connect } from "react-redux";
-import * as actions from "../redux/actions";
+import * as actions from "../redux/todo/todo-actions";
 
 const ToDo = ({
   task,

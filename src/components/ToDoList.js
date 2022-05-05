@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ToDo from "./ToDo";
 import Form from "./Form";
 import Stat from "./Stat";
-import * as actions from "../redux/actions";
+import * as actions from "../redux/todo/todo-actions";
 import { connect } from "react-redux";
 
 const ToDoList = ({ todosValue, addEditTodoButton }) => {

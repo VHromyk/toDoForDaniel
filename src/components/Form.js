@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toast";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { connect } from "react-redux";
-import * as actions from "../redux/actions";
+import * as actions from "../redux/todo/todo-actions";
 
 const Form = ({
   addNewTodo,
