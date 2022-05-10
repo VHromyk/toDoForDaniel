@@ -1,102 +1,51 @@
-import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { ToastContainer, toast } from "react-toast";
+import React, { useState} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { connect } from "react-redux";
-import * as actions from "../redux/todo/todo-actions";
+import operations from "../redux/todo/todo-operations";
 
-const Form = ({
-  addNewTodo,
-  changeText,
-  todoValues,
-  selectedTaskId,
-  editTodo,
-  isEditTodo,
-  addEditTodoButton,
-  setSelectTaskId,
-}) => {
-  const [textValue, setTextValue] = useState("");
+const Form = ({onSubmit}) => {
+  const [description, setDescription] = useState("");
 
-  useEffect(() => {
-    setTextValue(changeText);
-  }, [changeText]);
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
 
-  const settings = {
-    backgroundColor: "#F35B5B",
-    color: "#000000",
-  };
+    if (description !== '') {
+      onSubmit(description)
 
-  const notification = {
-    showError: () => toast.error("You have already this task!", settings),
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    const newTodo = {
-      id: uuidv4(),
-      startDate: Date.now(),
-      text: textValue,
-      isChecked: false,
-    };
-
-    const checkTaskById = todoValues.find((todo) => todo.id === selectedTaskId);
-
-    const checkTaskByText = todoValues.find(
-      (task) => task.text === newTodo.text
-    );
-
-    if (checkTaskByText) {
-      notification.showError();
-      return;
-    } else if (checkTaskById) {
-      const objForEditTodo = {
-        todo: checkTaskById,
-        newText: textValue,
-      };
-
-      editTodo(objForEditTodo);
-      addEditTodoButton(false);
-      setSelectTaskId(null);
-    } else if (!checkTaskById && newTodo.text) {
-      addNewTodo(newTodo);
+      setDescription('');
     }
-    setTextValue("");
-  };
+  }
 
   return (
     <>
       <h3>Add new task</h3>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmitForm}>
         <div className="form-control">
           <TextField
             id="outlined-basic"
             fullWidth
             type="text"
-            value={textValue}
-            onChange={(event) => setTextValue(event.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter text of the task..."
           ></TextField>
         </div>
         <Button className="btn" type="submit">
-          {isEditTodo ? "Edit Todo" : "Add Todo"}
+          Add Todo
         </Button>
-
-        <ToastContainer delay={3000} position="top-center" />
       </form>
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  todoValues: state.todos,
-  isEditTodo: state.isEditTodo,
-});
+// const mapStateToProps = (state) => ({
+//   todoValues: state.todos,
+// });
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewTodo: (todo) => dispatch(actions.addTodo(todo)),
-  editTodo: (objForEditTodo) => dispatch(actions.editTodo(objForEditTodo)),
+  onSubmit: (text) => dispatch(operations.addTodo(text)),
+    // editTodo: (objForEditTodo) => dispatch(actions.editTodo(objForEditTodo)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(Form);
