@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import actions from "../redux/todo/todo-actions";
+import operations from "../redux/todo/todo-operations";
 import EditTodo from "./EditTodo";
 
 const ToDo = ({
   todo,
-  toggleTodo,
+  completedTodo,
   onDelete,
   onEdit
 }) => {
@@ -16,8 +16,10 @@ const ToDo = ({
           className="input-checkbox"
           type="checkbox"
           value="Done"
-          // defaultChecked={isChecked}
-          onChange={() => toggleTodo(todo)}
+          defaultChecked={todo.completed}
+          onChange={() => {
+            completedTodo(todo)
+          }}
         />
         <div className="content-wrapper">
           {/* <p className={"date"}>{getCreateDate}</p> */}
@@ -40,7 +42,9 @@ const ToDo = ({
 
 const mapDispatchToProps = (dispatch) => ({
   
-  toggleTodo: (todo) => dispatch(actions.toggleTodo(todo)),
+  completedTodo: (todo) => {
+    dispatch(operations.completedTodo(todo))
+  },
 });
 
 export default connect(null, mapDispatchToProps)(ToDo);

@@ -1,12 +1,12 @@
 import "./App.css";
-import ToDoList from "./components/ToDoList";
+import TodoView from './views/todoView'
 
 function App() {
   return (
     <>
       <h2>ToDo App</h2>
       <div className="container">
-        <ToDoList />
+        <TodoView />
       </div>
     </>
   );

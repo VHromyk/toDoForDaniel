@@ -57,9 +57,19 @@ const state = {
 
 
 const todoReducer = createReducer(state.todos, {
+    [actions.fetchTodoSuccess]: (_, action) => action.payload,
     [actions.addTodoSuccess]: (state, { payload }) => [...state, payload],
-    [actions.removeTodo]: (state, action) => state.todos.filter((todo)=> todo.id !== action.payload),
-})
+    [actions.removeTodoSuccess]: (state, { payload }) => state.filter(({ todo_id }) => todo_id !== payload),
+    [actions.completedTodoSuccess]: (state, action) => state.map((todo) => {
+        if (todo.todo_id === action.payload.todo_id) {
+            return {
+                ...todo,
+                completed: !todo.completed
+            }
+        }
+        return todo;
+    }),
+});
 
 
 export default todoReducer;
