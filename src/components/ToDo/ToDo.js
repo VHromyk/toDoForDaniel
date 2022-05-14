@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import operations from "../redux/todo/todo-operations";
-import EditTodo from "./EditTodo";
+import operations from "../../redux/todo/todo-operations";
+import EditTodo from "../EditTodo";
+import style from './ToDo.module.css'
 
 const ToDo = ({
   todo,
@@ -11,7 +12,7 @@ const ToDo = ({
 }) => {
   return (
     <>
-      <li>
+      <li className={style.list_element}>
         <input
           className="input-checkbox"
           type="checkbox"
@@ -26,9 +27,9 @@ const ToDo = ({
           <p>{todo.description}</p>
         </div>
         <EditTodo todo={todo}/>
-        <div className="button-wrapper">
+        <div className="">
           <button
-            className="delete-btn"
+            className=""
             type="button"
             onClick={onDelete}
           >

@@ -11,6 +11,7 @@ const EditTodo = ({ todo }) => {
 
             console.log(body);
 
+            // eslint-disable-next-line no-unused-vars
             const response = await axios.put(
                 `http://localhost:5000/todos/${todo.todo_id}`, body
             );
@@ -25,7 +26,7 @@ const EditTodo = ({ todo }) => {
       <>
           <button
               type="button"
-              class="btn-sm btn-warning"
+              class=""
               data-toggle="modal"
               data-target={`#id${todo.todo_id}`}
           >

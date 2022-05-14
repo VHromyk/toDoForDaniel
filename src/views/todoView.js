@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ToDoList from '../components/ToDoList'
+import ToDoList from '../components/TodoList/ToDoList'
 import operations from '../redux/todo/todo-operations'
 import { connect } from 'react-redux'
 

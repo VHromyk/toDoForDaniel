@@ -1,0 +1,36 @@
+
+.list_wrapper {
+  display: flex;
+}
+
+.list_wrapper :first-child {
+  margin-right: 10px;
+}
+
+.stats_element {
+  font-size: 20px;
+}
+
+.stats_element :first-child {
+  margin-right: 5px;
+}
+
+.main_btn {
+  margin-left: 15px;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: rgb(139, 173, 201);
+}
+
+.main_btn:hover {
+  color: blue;
+  transform: scale(1.1);
+  transition-property: transform;
+  transition-duration: 1000ms;
+}
+
+.wrapper {
+  display: flex;
+}

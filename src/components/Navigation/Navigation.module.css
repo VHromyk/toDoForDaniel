@@ -1,0 +1,8 @@
+.nav_wrapper {
+  color: red;
+  font-size: 17px;
+}
+
+.nav_wrapper :first-child {
+  margin-right: 20px;
+}

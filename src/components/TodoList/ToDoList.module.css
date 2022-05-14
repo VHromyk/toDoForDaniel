@@ -1,0 +1,9 @@
+.list_wrapper {
+  margin-top: 40px;
+}
+
+.list_wrapper_container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -15px;
+}

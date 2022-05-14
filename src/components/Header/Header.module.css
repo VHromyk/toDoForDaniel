@@ -1,0 +1,11 @@
+.header {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  display: inline-block;
+  font-size: 22px;
+  line-height: 1.2;
+}
