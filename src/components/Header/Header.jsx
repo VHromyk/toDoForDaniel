@@ -5,7 +5,7 @@ import Navigation from '../Navigation/Navigation';
 const Header = () => {
   return (
     <div className={style.header}>
-      <a href="/" className={style.logo}>TODOS</a>
+      <a href="/user/1" className={style.logo}>TODOS</a>
       <Navigation />
     </div>
   )

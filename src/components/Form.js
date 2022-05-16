@@ -19,7 +19,7 @@ const Form = ({onSubmit}) => {
 
   return (
     <>
-      <h3>Add new task</h3>
+      {/* <h3>Add new task</h3>
       <form onSubmit={onSubmitForm}>
         <div className="form-control">
           <TextField
@@ -34,7 +34,7 @@ const Form = ({onSubmit}) => {
         <Button className="btn" type="submit">
           Add Todo
         </Button>
-      </form>
+      </form> */}
     </>
   );
 };
