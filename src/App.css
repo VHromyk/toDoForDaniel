@@ -32,7 +32,15 @@ a {
   outline: none;
   text-decoration: none;
   color: black;
+  display: inline-block;
 }
+
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+
+
 
 .container {
   margin: 30px auto;

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import style from './SignUpForm.module.css'
-import axios from 'axios'
+import { connect } from 'react-redux';
+import authOperations from '../../redux/auth/auth-opetrations'
 
-const SignUpForm = () => {
+const SignUpForm = ({onSignUp}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,21 +11,17 @@ const SignUpForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (name && email && password) {
-
-            const user = {
-                name, email, password
-            };
-
-            axios.post('http://localhost:5000/users', user)
-
+        const credentionals = {
+            name, email, password
         }
-      
+
+        onSignUp(credentionals);
+    
       setName('');
         setEmail('');
         setPassword('');
 
-        window.location='/user/1'
+        // window.location='/login'
     };
 
     return (
@@ -74,4 +71,15 @@ const SignUpForm = () => {
     );
 };
 
-export default SignUpForm;
+
+// const mapDispatchToProps = {
+//     onSubmit: authOperations.signUpUser,
+// };
+
+// It is the same like !!! =======>>>>>>
+
+const mapDispatchToProps = (dispatch) => ({
+    onSignUp: (data) => dispatch(authOperations.signUpUser(data)),
+}); 
+
+export default connect(null, mapDispatchToProps)(SignUpForm);

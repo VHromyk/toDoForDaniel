@@ -27,7 +27,7 @@
 }
 
 .form_submit_btn {
-  width: 60px;
   height: 28px;
   background-color: rgb(191, 186, 196);
+  border-radius: 5px;
 }

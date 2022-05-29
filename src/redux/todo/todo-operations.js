@@ -1,14 +1,10 @@
 import actions from './todo-actions';
-
-import axios from "axios";
-
+import TodoService from '../../service/TodoService';
 
 const fetchTodo = () => (dispatch) => {
   dispatch(actions.fetchTodoRequest());
 
-      axios
-          .get('http://localhost:5000/todos')
-          .then(({ data }) => {
+  TodoService.getAllTodos().then(({ data }) => {
               dispatch(actions.fetchTodoSuccess(data));
           })
           .catch((error) => dispatch(actions.fetchTodoError(error)));
@@ -20,11 +16,9 @@ const addTodo = (description) => (dispatch) => {
       completed: false,
     };
 
-    dispatch(actions.addTodoRequest());
-
-    axios
-        .post('http://localhost:5000/todos', todo)
-      .then(({ data }) =>
+  dispatch(actions.addTodoRequest());
+  
+  TodoService.addTodo(todo).then(({ data }) =>
       {
         dispatch(actions.addTodoSuccess(data))
       }
@@ -41,10 +35,8 @@ const completedTodo = (todo) => (dispatch) => {
     ...todo,
     completed: !todo.completed
   }
-  
-    axios
-        .put(`http://localhost:5000/todos/${todo.todo_id}`, newTodo)
-      .then(() => {
+
+  TodoService.completedTodo(todo.todo_id, newTodo).then(() => {
             dispatch(actions.completedTodoSuccess(todo));
         })
         .catch((error) => dispatch(actions.completedTodoError(error)));
@@ -53,18 +45,13 @@ const completedTodo = (todo) => (dispatch) => {
 
 const removeTodo = (todoId) => (dispatch) => {
 
-    dispatch(actions.removeTodoRequest());
-
-    axios
-        .delete(`http://localhost:5000/todos/${todoId}`,)
-        .then(() => {
+  dispatch(actions.removeTodoRequest());
+  
+  TodoService.removeTodo(todoId).then(() => {
             dispatch(actions.removeTodoSuccess(todoId));
         })
         .catch((error) => dispatch(actions.removeTodoError(error)));
 };
-
-
-
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {fetchTodo, addTodo, completedTodo, removeTodo }

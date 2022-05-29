@@ -1,22 +1,28 @@
 import { useState } from 'react';
 import style from './LoginForm.module.css';
+import loginUser from '../../redux/auth/auth-opetrations'
 
-const LoginForm = ({onLogin}) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState('')
+const LoginForm = () => {
+  const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    const [token, setToken] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+      e.preventDefault();
 
-    onLogin({ email, password })
+      if (email && password) {
+          loginUser(email, password).then((res) => setToken(res.data))
+      }
     
     setEmail('');
     setPassword('');
-  }
+    }
+    
+    console.log(token);
 
   return (
       <div className={style.container}>
-          <h2>Please login</h2>
+          <h2>Log In</h2>
           <form onSubmit={handleSubmit}>
               <div className={style.form_element}>
                   <label htmlFor="email">Email</label>
@@ -42,9 +48,9 @@ const LoginForm = ({onLogin}) => {
               <button type="submit" className={style.form_submit_btn}>
                   Login
               </button>
-              <button type="submit" className={style.form_submit_btn}>
-                  Reset
-              </button>
+              <a href="/signup" className={style.form_submit_btn}>
+                      Create account
+                      </a>
               </div>
           </form>
       </div>
