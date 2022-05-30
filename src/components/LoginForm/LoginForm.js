@@ -1,24 +1,23 @@
 import { useState } from 'react';
 import style from './LoginForm.module.css';
-import loginUser from '../../redux/auth/auth-opetrations'
+import { connect } from 'react-redux';
+import authOperations from '../../redux/auth/auth-opetrations'
 
-const LoginForm = () => {
+const LoginForm = ({onLogin}) => {
   const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
-    const [token, setToken] = useState('');
+    // const [token, setToken] = useState('');
 
   const handleSubmit = (e) => {
       e.preventDefault();
 
-      if (email && password) {
-          loginUser(email, password).then((res) => setToken(res.data))
-      }
+      onLogin(email, password);
     
     setEmail('');
     setPassword('');
     }
     
-    console.log(token);
+    // console.log(token);
 
   return (
       <div className={style.container}>
@@ -58,4 +57,8 @@ const LoginForm = () => {
 }
 
 
-export default LoginForm;
+const mapDispatchToProps = (dispatch) => ({
+    onLogin: (email, password) => dispatch(authOperations.loginUser(email, password))
+}) 
+
+export default connect(null, mapDispatchToProps)(LoginForm);

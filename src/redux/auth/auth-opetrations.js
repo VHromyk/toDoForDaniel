@@ -13,10 +13,12 @@ const signUpUser = (credentionals) => dispatch => {
 const loginUser = (email, password) => (dispatch) => {
   dispatch(actions.loginUserRequest())
   
-  AuthService.login(email, password).then(({ data }) => {
-    console.log(data);
-    dispatch(actions.loginUserSuccess(data))
-  }).catch((error) => dispatch(actions.loginUserError(error.message)))
+  AuthService.login(email, password)
+    .then((res) => {
+      console.log(res.data);
+      dispatch(actions.loginUserSuccess(res.data))
+    })
+    .catch((error) => dispatch(actions.loginUserError(error.message)))
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
