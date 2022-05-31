@@ -1,18 +1,17 @@
-import $api from "../http";
+import axios from 'axios';
 
 class AuthService {
     static async login(email, password) {
-        return $api.post('/login', { email, password });
+        return axios.post('/login', { email, password });
     }
 
-    static async signup({name, email, password}) {
-        return $api.post('/signup', { name, email, password });
-  }
-  
+    static async signup({ name, email, password }) {
+        return axios.post('/signup', { name, email, password });
+    }
+
     static async logout() {
-        return $api.post('/logout');
+        return axios.post('/logout');
     }
 }
-
 
 export default AuthService;

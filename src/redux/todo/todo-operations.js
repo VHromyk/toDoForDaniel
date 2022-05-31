@@ -7,7 +7,7 @@ const fetchTodo = () => (dispatch) => {
   TodoService.getAllTodos().then(({ data }) => {
               dispatch(actions.fetchTodoSuccess(data));
           })
-          .catch((error) => dispatch(actions.fetchTodoError(error)));
+          .catch((error) => dispatch(actions.fetchTodoError(error.message)));
 };
 
 const addTodo = (description) => (dispatch) => {
@@ -24,7 +24,7 @@ const addTodo = (description) => (dispatch) => {
       }
         )
         .catch((error) =>
-            dispatch(actions.addTodoError(error))
+            dispatch(actions.addTodoError(error.message))
         );
 };
 
@@ -39,7 +39,7 @@ const completedTodo = (todo) => (dispatch) => {
   TodoService.completedTodo(todo.todo_id, newTodo).then(() => {
             dispatch(actions.completedTodoSuccess(todo));
         })
-        .catch((error) => dispatch(actions.completedTodoError(error)));
+        .catch((error) => dispatch(actions.completedTodoError(error.message)));
 };
 
 
@@ -50,7 +50,7 @@ const removeTodo = (todoId) => (dispatch) => {
   TodoService.removeTodo(todoId).then(() => {
             dispatch(actions.removeTodoSuccess(todoId));
         })
-        .catch((error) => dispatch(actions.removeTodoError(error)));
+        .catch((error) => dispatch(actions.removeTodoError(error.message)));
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

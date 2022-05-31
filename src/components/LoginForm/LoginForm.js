@@ -5,8 +5,7 @@ import authOperations from '../../redux/auth/auth-opetrations'
 
 const LoginForm = ({onLogin}) => {
   const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
-    // const [token, setToken] = useState('');
+    const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
       e.preventDefault();
@@ -17,7 +16,7 @@ const LoginForm = ({onLogin}) => {
     setPassword('');
     }
     
-    // console.log(token);
+
 
   return (
       <div className={style.container}>
